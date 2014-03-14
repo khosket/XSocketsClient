@@ -1,0 +1,6 @@
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Debug\XSockets.Client40.dll
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Debug\XSockets.Client40.pdb
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Debug\ServiceStack.Text.dll
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Debug\ServiceStack.Text.xml
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\obj\Debug\XSockets.Client40.dll
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\obj\Debug\XSockets.Client40.pdb

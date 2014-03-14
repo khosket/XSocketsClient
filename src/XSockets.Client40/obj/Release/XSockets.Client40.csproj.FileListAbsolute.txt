@@ -1,0 +1,7 @@
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Release\XSockets.Client40.dll
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Release\XSockets.Client40.pdb
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Release\ServiceStack.Text.dll
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Release\ServiceStack.Text.xml
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\obj\Release\XSockets.Client40.dll
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\obj\Release\XSockets.Client40.pdb
+C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\obj\Release\XSockets.Client40.csprojResolveAssemblyReference.cache
