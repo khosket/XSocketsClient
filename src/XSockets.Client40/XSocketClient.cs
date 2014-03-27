@@ -68,7 +68,10 @@ namespace XSockets.Client40
         /// </summary>
         public bool IsConnected
         {
-            get { return this.Socket != null && this.Socket.Socket.Connected && this.IsHandshakeDone; }
+            get
+            {
+                return this.Socket != null && this.Socket.Socket.Connected && this.IsHandshakeDone;                
+            }
         }
 
         /// <summary>
