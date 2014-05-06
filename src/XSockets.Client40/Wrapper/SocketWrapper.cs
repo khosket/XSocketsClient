@@ -69,9 +69,16 @@ namespace XSockets.Client40.Wrapper
             var tempStream = new SslStreamWrapper(ssl);
             Stream = tempStream;
 
+            //check if secure connection with client cert
+            X509Certificate2Collection certs = null;
+            if (certificate != null)
+            {
+                certs = new X509Certificate2Collection(certificate);
+            }
+
             Func<AsyncCallback, object, IAsyncResult> begin =
                 (cb, s) => ssl.BeginAuthenticateAsClient(this.RemoteIpAddress,
-                    new X509Certificate2Collection(certificate),SslProtocols.Tls, false, cb, s);
+                     certs, SslProtocols.Tls, false, cb, s);
 
             var task = Task.Factory.FromAsync(begin, ssl.EndAuthenticateAsClient, null);
            
@@ -105,7 +112,7 @@ namespace XSockets.Client40.Wrapper
 
 
             Func<AsyncCallback, object, IAsyncResult> begin =
-                (cb, s) => Stream.BeginRead(buffer, offset, buffer.Length, cb, s);
+                (cb, s) => Stream.BeginRead(buffer, offset, buffer.Length - offset, cb, s);
 
 
             Task<int> task = Task.Factory.FromAsync<int>(begin, Stream.EndRead, null);

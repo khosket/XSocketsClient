@@ -70,7 +70,7 @@ namespace XSockets.Client40
         {
             get
             {
-                return this.Socket != null && this.Socket.Socket.Connected && this.IsHandshakeDone;                
+                return this.Socket != null && this.Socket.Socket.Connected && this.IsHandshakeDone;
             }
         }
 
@@ -86,11 +86,11 @@ namespace XSockets.Client40
         public string Url { get; private set; }
 
         private EndPoint _remoteEndPoint;
-        
+
         private IXFrameHandler _frameHandler;
-        
+
         private readonly string _origin;
-        private readonly bool _isSecure;
+        private bool _isSecure;
         private readonly X509Certificate2 _certificate;
 
         public XSocketClient(string url, string origin, bool connect = false, bool isPrimitive = false)
@@ -111,7 +111,8 @@ namespace XSockets.Client40
                 Open();
         }
 
-        public XSocketClient(string url, string origin, X509Certificate2 certificate, bool connect = false, bool isPrimitive = false):this(url,origin,connect,isPrimitive)
+        public XSocketClient(string url, string origin, X509Certificate2 certificate, bool connect = false, bool isPrimitive = false)
+            : this(url, origin, connect, isPrimitive)
         {
             this._isSecure = true;
             this._certificate = certificate;
@@ -151,6 +152,13 @@ namespace XSockets.Client40
         private void SetRemoteEndpoint()
         {
             var url = new Uri(this.Url);
+
+            //check for secure connection (via wss)
+            if (url.Scheme.ToLower() == "wss")
+            {
+                _isSecure = true;
+            }
+
             IPAddress ipAddress;
             if (!IPAddress.TryParse(url.Host, out ipAddress))
             {
@@ -180,9 +188,16 @@ namespace XSockets.Client40
             var buffer = new byte[1024];
             Socket.Send(Encoding.UTF8.GetBytes(handshake.ToString()), () => Socket.Receive(buffer, r =>
             {
-                Receive();
+                //check if only a partial handshake received (noticed with/ IIS8 hosts)
+                if (r < 2) 
+                { 
+                    //read the rest of the handshake
+                    ReadHandshakeContinue(buffer, r); 
+                }
                 IsHandshakeDone = true;
-
+                
+                Receive();
+                
                 if (!this.IsPrimitive)
                 {
                     BindUnboundBindings();
@@ -193,7 +208,23 @@ namespace XSockets.Client40
             }, err => FireOnClose()),
                         err => FireOnClose());
         }
-       
+
+        private void ReadHandshakeContinue(byte[] buffer, int offset)
+        {
+            Socket.Receive(buffer, r =>
+            {
+                int totalOffset = offset + r;
+                if (r < 2)
+                {
+                    ReadHandshakeContinue(buffer, totalOffset);
+                }
+
+                return;
+            },
+            ex => FireOnClose(),
+            offset);
+        }
+
         public ITextArgs AsTextArgs(object o, string eventname)
         {
             return new TextArgs { @event = eventname.ToLower(), data = this.Serializer.SerializeToString(o) };
@@ -254,7 +285,7 @@ namespace XSockets.Client40
                 if (binding == null)
                 {
                     if (FireOnMessageForUnboundEvents)
-                    {                        
+                    {
                         if (this.OnMessage != null) this.OnMessage.Invoke(this, args as TextArgs);
                     }
                     return;
@@ -268,8 +299,8 @@ namespace XSockets.Client40
                 }
                 //Pub/Sub is used, fire the callback with the argument
                 else
-                {                   
-                    this.FireBoundMethod(binding,args);
+                {
+                    this.FireBoundMethod(binding, args);
                 }
             }
             catch (Exception) // Will dispatch to OnError on exception
@@ -295,7 +326,7 @@ namespace XSockets.Client40
         /// </summary>
         public void Close()
         {
-            var frame = GetDataFrame(FrameType.Close, Encoding.UTF8.GetBytes(""));            
+            var frame = GetDataFrame(FrameType.Close, Encoding.UTF8.GetBytes(""));
 
             Socket.Send(frame.ToBytes(), () => this.Socket.Dispose(), err => { });
 
