@@ -154,7 +154,7 @@ namespace XSockets.Client40
             var url = new Uri(this.Url);
 
             //check for secure connection (via wss)
-            if (url.Scheme.ToLower() == "wss")
+            if (url.IsWebSocketSecure())
             {
                 _isSecure = true;
             }
@@ -164,11 +164,11 @@ namespace XSockets.Client40
             {
                 var addr = Dns.GetHostAddresses(url.Host);
                 if (addr.Any(p => p.AddressFamily == AddressFamily.InterNetwork))
-                    _remoteEndPoint = new IPEndPoint(addr.First(p => p.AddressFamily == AddressFamily.InterNetwork), url.Port);
+                    _remoteEndPoint = new IPEndPoint(addr.First(p => p.AddressFamily == AddressFamily.InterNetwork), url.GetWebSocketPort());
             }
             else
             {
-                _remoteEndPoint = new IPEndPoint(ipAddress, url.Port);
+                _remoteEndPoint = new IPEndPoint(ipAddress, url.GetWebSocketPort());
             }
         }
 

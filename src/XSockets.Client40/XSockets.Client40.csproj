@@ -74,6 +74,7 @@
     <Compile Include="Globals\Constants.cs" />
     <Compile Include="Helpers\Endian.cs" />
     <Compile Include="Helpers\Transformation.cs" />
+    <Compile Include="Helpers\UriExtensions.cs" />
     <Compile Include="Helpers\XSocketJsonSerializer.cs" />
     <Compile Include="Model\ClientInfo.cs" />
     <Compile Include="Model\Subscription.cs" />

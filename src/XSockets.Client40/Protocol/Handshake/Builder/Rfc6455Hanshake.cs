@@ -1,4 +1,5 @@
 ﻿using System;
+using XSockets.Client40.Helpers;
 
 namespace XSockets.Client40.Protocol.Handshake.Builder
 {
@@ -25,7 +26,7 @@ namespace XSockets.Client40.Protocol.Handshake.Builder
         {
             var uri = new Uri(url);
             this._origin = origin;
-            this._host = string.Format("{0}:{1}", uri.Host, uri.Port);
+            this._host = string.Format("{0}:{1}", uri.Host, uri.GetWebSocketPort());
            
             this._path = uri.PathAndQuery;
               
