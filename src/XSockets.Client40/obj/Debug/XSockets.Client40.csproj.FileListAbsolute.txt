@@ -4,3 +4,9 @@ C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Debug\ServiceStack.Tex
 C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\bin\Debug\ServiceStack.Text.xml
 C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\obj\Debug\XSockets.Client40.dll
 C:\TFS\XSockets\XSockets.MainBranch\XSockets.Client40\obj\Debug\XSockets.Client40.pdb
+C:\Users\Kevin.PALADIN\Source\Repos\XSocketsClient.github\src\XSockets.Client40\bin\Debug\XSockets.Client40.dll
+C:\Users\Kevin.PALADIN\Source\Repos\XSocketsClient.github\src\XSockets.Client40\bin\Debug\XSockets.Client40.pdb
+C:\Users\Kevin.PALADIN\Source\Repos\XSocketsClient.github\src\XSockets.Client40\bin\Debug\ServiceStack.Text.xml
+C:\Users\Kevin.PALADIN\Source\Repos\XSocketsClient.github\src\XSockets.Client40\obj\Debug\XSockets.Client40.csprojResolveAssemblyReference.cache
+C:\Users\Kevin.PALADIN\Source\Repos\XSocketsClient.github\src\XSockets.Client40\obj\Debug\XSockets.Client40.dll
+C:\Users\Kevin.PALADIN\Source\Repos\XSocketsClient.github\src\XSockets.Client40\obj\Debug\XSockets.Client40.pdb
